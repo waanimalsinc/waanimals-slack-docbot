@@ -1,0 +1,22 @@
+service: waanimals-slack-docbot
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: dev
+  environment:
+    SLACK_SIGNING_SECRET: ${ssm:waanimals_slack_signing_secret}
+    STAGE: ${opt:stage}
+  region: ap-southeast-2
+  
+functions:
+  app:
+    handler: handler.post
+    events:
+      - http: ANY /
+      - http:
+          path: '{proxy+}'
+          method: any
+
+plugins:
+  - serverless-offline
