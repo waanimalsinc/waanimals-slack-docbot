@@ -31,3 +31,14 @@ curl -X POST \
 ```bash
 serverless deploy --stage=dev
 ```
+
+### Assume Role
+
+```bash
+response=$(aws sts assume-role --role-arn arn:aws:iam::XXXXXXXXXXXX:role/SandboxDev --role-session-name "Serverless")
+
+# Set Variables
+export AWS_ACCESS_KEY_ID=$(echo $response | jq -r '.Credentials.AccessKeyId')
+export AWS_SECRET_ACCESS_KEY=$(echo $response | jq -r '.Credentials.SecretAccessKey')
+export AWS_SESSION_TOKEN=$(echo ${response} | jq -r '.Credentials.SessionToken')
+```
