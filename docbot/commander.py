@@ -1,10 +1,15 @@
+from .utils.sheets import microchip_lookup
+
+
 def microchip(animal_name):
+    microchip = microchip_lookup(animal_name)
+    print(microchip)
     return {
         "response_type": "ephemeral",
         "text": "Microchip Lookup for %s" % animal_name,
         "attachments": [
             {
-                "text": "Microchip for %s" % animal_name
+                "text": microchip
             }
         ]
     }
@@ -26,7 +31,6 @@ def help():
 
 
 def command_parse(command, text):
-    print(command)
     if command == "/microchip":
         return microchip(text)
     if command == "/docbot":

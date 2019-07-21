@@ -13,6 +13,19 @@ aws ssm put-parameter \
   --value XXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
+Create a secret for the Animals in care sheet ID
+
+```bash
+aws ssm put-parameter \
+  --name waanimals_gcloud_sheet_animals \
+  --type String \
+  --value XXXXXXXXXXXXXXXXXXXXXXXX
+```
+
+## Google Sheets API Setup
+
+Follow the guide [here](https://gspread.readthedocs.io/en/latest/oauth2.html#using-signed-credentials) and put the credentials file in `docbot/utils/gauth.json`
+
 ### Testing
 
 ```bash

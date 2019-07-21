@@ -1,14 +1,25 @@
 service: waanimals-slack-docbot
 
+package:
+  exclude:
+    - venv/**
+    - node_modules/**
+    - .vscode/**
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+
 provider:
   name: aws
   runtime: python3.7
   stage: dev
   environment:
     SLACK_SIGNING_SECRET: ${ssm:waanimals_slack_signing_secret}
+    GCLOUD_SHEET_ANIMALS: ${ssm:waanimals_gcloud_sheet_animals}
     STAGE: ${opt:stage}
   region: ap-southeast-2
-  
+
 functions:
   app:
     handler: handler.post
@@ -20,3 +31,4 @@ functions:
 
 plugins:
   - serverless-offline
+  - serverless-python-requirements
